@@ -10,7 +10,8 @@ import {
   LogOut,
   Compass,
   MessageSquareMore,
-  Briefcase
+  Briefcase,
+  BriefcaseBusiness
 } from "lucide-react";
 import FriendChat from "./FriendChat";
 
@@ -25,6 +26,7 @@ export default function Sidebar() {
     { name: "Group", path: "/groups", icon: Users },
     { name: "Explore Courses", path: "/courses", icon: Compass, badge: "New" },
     { name: "Hire Freelancer", path: "/hire", icon: Briefcase, badge: "Pro", badgeColor: "#f59e0b" },
+    { name: "Jobs Board", path: "/jobs", icon: BriefcaseBusiness, badge: "Hot", badgePulse: true },
     { name: "StudyBot AI", path: "/chatbot", icon: MessageSquareMore, badge: "AI", badgePulse: true },
   ];
 

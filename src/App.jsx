@@ -10,6 +10,7 @@ import Settings from "./Pages/Settings";
 import CoursesPage from "./Pages/Courses";
 import ChatbotPage from "./Pages/ChatbotPage";
 import HireFreelancerPage from "./Pages/HireFreelancerPage";
+import Jobs from "./Pages/Jobs";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/courses" element={<CoursesPage />} />
         <Route path="/chatbot" element={<ChatbotPage />} />
         <Route path="/hire" element={<HireFreelancerPage />} />
+        <Route path="/jobs" element={<Jobs />} />
       </Route>
     </Routes>
   );

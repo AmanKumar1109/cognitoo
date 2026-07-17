@@ -11,6 +11,7 @@ const PAGE_TITLES = {
   "/courses": { title: "Explore Courses", subtitle: "Find the perfect course for you" },
   "/chatbot": { title: "StudyBot AI", subtitle: "Ask anything about your courses" },
   "/hire": { title: "Hire a Freelancer", subtitle: "Connect with top professionals" },
+  "/jobs": { title: "Jobs Board", subtitle: "Explore career opportunities or hire top talent for your team" },
   "/settings": { title: "Settings", subtitle: "Manage your preferences" },
 };
 
