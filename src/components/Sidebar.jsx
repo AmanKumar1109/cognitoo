@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  Mail, 
-  BookOpen, 
-  CheckSquare, 
-  Users, 
-  Settings, 
+import {
+  LayoutDashboard,
+  Mail,
+  BookOpen,
+  CheckSquare,
+  Users,
+  Settings,
   LogOut,
   Compass,
   MessageSquareMore,
@@ -54,7 +54,7 @@ export default function Sidebar() {
               <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" />
             </svg>
           </div>
-          <span className="text-xl font-bold tracking-tight text-slate-800">Coursue</span>
+          <span className="text-xl font-bold tracking-tight text-slate-800">Cognitoo</span>
         </div>
 
         {/* Main Navigation */}
@@ -72,10 +72,9 @@ export default function Sidebar() {
                     key={item.name}
                     to={item.path}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 relative group ${
-                        isActive
-                          ? "text-brand-primary bg-indigo-50/40"
-                          : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                      `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 relative group ${isActive
+                        ? "text-brand-primary bg-indigo-50/40"
+                        : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
                       }`
                     }
                   >
@@ -84,9 +83,8 @@ export default function Sidebar() {
                         {isActive && (
                           <span className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r-md bg-brand-primary" />
                         )}
-                        <Icon className={`w-5 h-5 transition-transform duration-200 group-hover:scale-105 ${
-                          isActive ? "text-brand-primary" : "text-slate-400 group-hover:text-slate-600"
-                        }`} />
+                        <Icon className={`w-5 h-5 transition-transform duration-200 group-hover:scale-105 ${isActive ? "text-brand-primary" : "text-slate-400 group-hover:text-slate-600"
+                          }`} />
                         <span className="flex-1">{item.name}</span>
                         {item.badge && (
                           <span
@@ -117,11 +115,10 @@ export default function Sidebar() {
                   <button
                     key={friend.name}
                     onClick={() => handleFriendClick(friend)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all duration-200 text-left group ${
-                      isActive
+                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all duration-200 text-left group ${isActive
                         ? "bg-indigo-50/60"
                         : "hover:bg-slate-50/70"
-                    }`}
+                      }`}
                   >
                     {/* Avatar + online dot */}
                     <div className="relative shrink-0">
@@ -148,9 +145,8 @@ export default function Sidebar() {
 
                     {/* Chat bubble icon hint */}
                     <MessageSquareMore
-                      className={`w-3.5 h-3.5 shrink-0 transition-all duration-150 ${
-                        isActive ? "text-brand-primary" : "text-slate-300 group-hover:text-slate-400"
-                      }`}
+                      className={`w-3.5 h-3.5 shrink-0 transition-all duration-150 ${isActive ? "text-brand-primary" : "text-slate-300 group-hover:text-slate-400"
+                        }`}
                     />
                   </button>
                 );
@@ -167,10 +163,9 @@ export default function Sidebar() {
               <NavLink
                 to="/settings"
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 relative group ${
-                    isActive
-                      ? "text-brand-primary bg-indigo-50/40"
-                      : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                  `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 relative group ${isActive
+                    ? "text-brand-primary bg-indigo-50/40"
+                    : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
                   }`
                 }
               >
@@ -179,9 +174,8 @@ export default function Sidebar() {
                     {isActive && (
                       <span className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r-md bg-brand-primary" />
                     )}
-                    <Settings className={`w-5 h-5 transition-transform duration-200 group-hover:scale-105 ${
-                      isActive ? "text-brand-primary" : "text-slate-400 group-hover:text-slate-600"
-                    }`} />
+                    <Settings className={`w-5 h-5 transition-transform duration-200 group-hover:scale-105 ${isActive ? "text-brand-primary" : "text-slate-400 group-hover:text-slate-600"
+                      }`} />
                     <span>Setting</span>
                   </>
                 )}
