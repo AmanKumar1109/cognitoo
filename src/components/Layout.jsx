@@ -1,11 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
+import FloatingChatbot from "./FloatingChatbot";
 import gsap from "gsap";
 
 export default function Layout() {
   const containerRef = useRef(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Elegant entrance animation for the dashboard shell
@@ -19,21 +21,32 @@ export default function Layout() {
   return (
     <div 
       ref={containerRef}
-      className="w-full h-screen bg-white flex overflow-hidden"
+      className="w-full h-screen bg-white flex overflow-hidden relative"
     >
+      {/* Mobile Drawer Backdrop Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => setIsMobileMenuOpen(false)}
+          className="fixed inset-0 z-30 bg-[#0d253d]/30 backdrop-blur-xs lg:hidden transition-all duration-150"
+        />
+      )}
+
       {/* Sidebar navigation */}
-      <Sidebar />
+      <Sidebar isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
 
       {/* Main panel */}
-      <div className="flex-1 flex flex-col min-w-0 h-full bg-[#f8fafc]">
+      <div className="flex-1 flex flex-col min-w-0 h-full bg-canvas-soft">
         {/* Header bar */}
-        <Header />
+        <Header onToggleMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)} isMenuOpen={isMobileMenuOpen} />
 
         {/* Content area */}
-        <main className="flex-1 overflow-y-scroll min-h-0 bg-[#f8fafc]">
+        <main className="flex-1 overflow-y-scroll min-h-0 bg-canvas-soft">
           <Outlet />
         </main>
       </div>
+
+      {/* Floating AI Bot Assistant */}
+      <FloatingChatbot />
     </div>
   );
 }

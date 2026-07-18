@@ -1,15 +1,93 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-sans: "Plus Jakarta Sans", "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-family-display: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-primary-light: var(--color-brand-primary-light);
+  --color-brand-primary-soft: var(--color-brand-primary-soft);
+  --color-brand-dark-900: var(--color-brand-dark-900);
+  --color-ink: var(--color-ink);
+  --color-ink-secondary: var(--color-ink-secondary);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-canvas-soft: var(--color-canvas-soft);
+  --color-canvas-card: var(--color-canvas-card);
+  --color-hairline: var(--color-hairline);
+  --color-ruby: var(--color-ruby);
+  --color-magenta: var(--color-magenta);
+  --color-lemon: var(--color-lemon);
+  
+  /* Fallbacks for existing layout styles so we don't break them completely */
+  --color-brand-secondary: var(--color-brand-secondary);
+  --color-brand-secondary-light: var(--color-brand-secondary-light);
+  --color-brand-blue: var(--color-brand-blue);
+  --color-brand-blue-light: var(--color-brand-blue-light);
+  --color-brand-purple-bg: var(--color-brand-purple-bg);
+  --color-bg-light: var(--color-bg-light);
+}
+
+:root {
   --color-brand-primary: #5e5ce6;
-  --color-brand-primary-light: #eff0fe;
-  --color-brand-secondary: #ff7594;
+  --color-brand-primary-light: #f2f1ff;
+  --color-brand-primary-soft: #807df6;
+  --color-brand-dark-900: #1c1e54;
+  --color-ink: #0d253d;
+  --color-ink-secondary: #273951;
+  --color-ink-muted: #64748d;
+  --color-canvas-soft: #f6f9fc;
+  --color-canvas-card: #ffffff;
+  --color-hairline: #e3e8ee;
+  --color-ruby: #ea2261;
+  --color-magenta: #f96bee;
+  --color-lemon: #9b6829;
+  
+  --color-brand-secondary: #ea2261;
   --color-brand-secondary-light: #fff0f3;
-  --color-brand-blue: #007aff;
-  --color-brand-blue-light: #e6f2ff;
+  --color-brand-blue: #5e5ce6;
+  --color-brand-blue-light: #f6f9fc;
+  --color-brand-purple-bg: #5e5ce6;
+  --color-bg-light: #f6f9fc;
+}
+
+.dark {
+  --color-brand-primary: #807df6;
+  --color-brand-primary-light: #161726;
+  --color-brand-primary-soft: #9f9df8;
+  --color-brand-dark-900: #0a0b0d;
+  --color-ink: #f8fafc;
+  --color-ink-secondary: #cbd5e1;
+  --color-ink-muted: #64748b;
+  --color-canvas-soft: #08090b;
+  --color-canvas-card: #0f1013;
+  --color-hairline: #222329;
+  --color-ruby: #ea2261;
+  --color-magenta: #f96bee;
+  --color-lemon: #9b6829;
+  
+  --color-brand-secondary: #ea2261;
+  --color-brand-secondary-light: #1e111a;
+  --color-brand-blue: #807df6;
+  --color-brand-blue-light: #08090b;
   --color-brand-purple-bg: #807df6;
-  --color-bg-light: #f3f4fa;
+  --color-bg-light: #08090b;
+}
+
+/* Global overrides for Dark Mode */
+.dark .bg-white {
+  background-color: var(--color-canvas-card) !important;
+}
+
+.dark .focus\:bg-white:focus {
+  background-color: var(--color-canvas-card) !important;
+}
+
+.dark .ring-white {
+  --tw-ring-color: var(--color-canvas-card) !important;
+}
+
+/* Adaptive Mesh Gradient */
+.dark .stripe-mesh-gradient {
+  background: linear-gradient(135deg, #0a0b0d 0%, #08090b 50%, #161726 100%) !important;
 }
 
 /* Hide all scrollbars globally */
@@ -21,14 +99,20 @@
   display: none;               /* Chrome / Safari / Opera */
 }
 
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-family-display);
+  letter-spacing: -0.015em;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: var(--font-family-sans);
-  background-color: #f8fafc;
+  background-color: var(--color-canvas-soft);
   min-height: 100vh;
-  color: #1e293b;
+  color: var(--color-ink);
   overflow: hidden; /* Prevent body scrolling since our layout handles it */
+  -webkit-font-smoothing: antialiased;
 }
 
 #root {
@@ -38,8 +122,59 @@ body {
   margin: 0;
 }
 
+/* Stripe Mesh Gradient style */
+.stripe-mesh-gradient {
+  background: linear-gradient(135deg, #1c1e54 0%, #0d253d 50%, #533afd 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.stripe-mesh-gradient::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(249, 107, 238, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 20% 80%, rgba(83, 58, 253, 0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.stripe-card {
+  background-color: #ffffff;
+  border: 1px solid var(--color-hairline);
+  border-radius: 16px;
+  box-shadow: rgba(50, 50, 93, 0.02) 0px 2px 5px 0px, rgba(0, 0, 0, 0.01) 0px 1px 1px 0px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.stripe-card:hover {
+  box-shadow: rgba(50, 50, 93, 0.04) 0px 6px 12px -2px, rgba(0, 0, 0, 0.02) 0px 3px 7px -3px;
+  border-color: #d8deeb;
+}
+
+.stripe-button-pill {
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
 /* Entrance Animations container */
 .fade-in-element {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(12px);
 }
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}

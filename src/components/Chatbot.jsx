@@ -101,7 +101,7 @@ function parseMarkdown(text) {
   // Inline code
   html = html.replace(
     /`(.*?)`/g,
-    '<code style="background:#f1f5f9;color:#5e5ce6;padding:1px 5px;border-radius:4px;font-family:monospace;font-size:12px;">$1</code>'
+    '<code style="background:var(--color-brand-primary-light);color:var(--color-brand-primary);padding:2px 5px;border-radius:4px;font-family:monospace;font-size:12px;border:1px solid rgba(83,58,253,0.15)">$1</code>'
   );
   // Bullet list items starting with "- "
   html = html.replace(/^- (.+)$/gm, '<li class="list-item">$1</li>');
@@ -125,29 +125,29 @@ function MessageBubble({ msg, isNew }) {
     <div ref={ref} className={`flex gap-3 ${isBot ? "items-start" : "items-end flex-row-reverse"}`}>
       {/* Avatar */}
       <div
-        className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+        className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
           isBot
-            ? "bg-gradient-to-br from-[#5e5ce6] to-[#807df6] shadow-md shadow-indigo-200"
-            : "bg-slate-100"
+            ? "bg-brand-primary border-brand-primary text-white shadow-sm"
+            : "bg-white border-hairline text-ink-muted shadow-sm"
         }`}
       >
         {isBot ? (
-          <Bot className="w-4 h-4 text-white" />
+          <Bot className="w-4 h-4" />
         ) : (
-          <User className="w-4 h-4 text-slate-500" />
+          <User className="w-4 h-4" />
         )}
       </div>
 
       {/* Bubble */}
       <div
-        className={`max-w-[75%] px-4 py-3 rounded-2xl text-[13px] leading-[1.65] ${
+        className={`max-w-[75%] px-4 py-3 rounded-lg text-[13px] leading-[1.65] ${
           isBot
-            ? "bg-white border border-slate-100 shadow-sm text-slate-700 rounded-tl-sm"
-            : "text-white rounded-br-sm shadow-md shadow-indigo-200"
+            ? "bg-white border border-hairline shadow-sm text-ink-secondary rounded-tl-none"
+            : "text-white rounded-br-none shadow-sm"
         }`}
         style={
           !isBot
-            ? { background: "linear-gradient(135deg, #5e5ce6 0%, #807df6 100%)" }
+            ? { backgroundColor: "var(--color-brand-primary)" }
             : {}
         }
       >
@@ -156,7 +156,7 @@ function MessageBubble({ msg, isNew }) {
             <style>{`
               .chat-list { margin: 6px 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
               .chat-list .list-item { display: flex; gap: 8px; }
-              .chat-list .list-item::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #5e5ce6; flex-shrink: 0; margin-top: 7px; }
+              .chat-list .list-item::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--color-brand-primary); flex-shrink: 0; margin-top: 7px; }
             `}</style>
             <div dangerouslySetInnerHTML={{ __html: parseMarkdown(msg.text) }} />
           </>
@@ -164,7 +164,7 @@ function MessageBubble({ msg, isNew }) {
           <p>{msg.text}</p>
         )}
         <p
-          className={`text-[10px] mt-2 font-medium ${isBot ? "text-slate-300" : "text-white/50"}`}
+          className={`text-[9px] mt-2 font-medium ${isBot ? "text-ink-muted" : "text-white/70"}`}
         >
           {msg.time}
         </p>
@@ -176,11 +176,11 @@ function MessageBubble({ msg, isNew }) {
 function TypingIndicator() {
   return (
     <div className="flex gap-3 items-start">
-      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#5e5ce6] to-[#807df6] flex items-center justify-center shrink-0 shadow-md shadow-indigo-200">
-        <Bot className="w-4 h-4 text-white" />
+      <div className="w-8 h-8 rounded-lg bg-brand-primary flex items-center justify-center shrink-0 border border-brand-primary text-white shadow-sm">
+        <Bot className="w-4 h-4" />
       </div>
-      <div className="bg-white border border-slate-100 shadow-sm px-4 py-3.5 rounded-2xl rounded-tl-sm flex items-center gap-2">
-        <span className="text-xs text-slate-400 font-medium mr-1">Thinking</span>
+      <div className="bg-white border border-hairline shadow-sm px-4 py-3 rounded-lg rounded-tl-none flex items-center gap-2">
+        <span className="text-xs text-ink-muted mr-1">Thinking</span>
         {[0, 1, 2].map((i) => (
           <span
             key={i}
@@ -255,44 +255,33 @@ export default function Chatbot() {
   };
 
   return (
-    <div ref={containerRef} className="flex flex-col h-full bg-white">
+    <div ref={containerRef} className="flex flex-col h-full bg-white rounded-xl overflow-hidden border border-hairline shadow-sm">
 
       {/* ── Header ────────────────────────────────────────────── */}
       <div
-        className="shrink-0 px-6 pt-6 pb-5 relative overflow-hidden"
-        style={{ background: "linear-gradient(140deg, #4a48e0 0%, #6f6cf5 55%, #9b98ff 100%)" }}
+        className="shrink-0 px-6 pt-6 pb-5 relative overflow-hidden stripe-mesh-gradient"
       >
-        {/* Decorative background orbs */}
-        <div className="absolute -top-8 -right-8 w-36 h-36 rounded-full pointer-events-none"
-          style={{ background: "rgba(255,255,255,0.07)", filter: "blur(2px)" }} />
-        <div className="absolute -bottom-10 -left-6 w-44 h-44 rounded-full pointer-events-none"
-          style={{ background: "rgba(255,255,255,0.05)", filter: "blur(3px)" }} />
-        <div className="absolute top-4 right-20 w-16 h-16 rounded-full pointer-events-none"
-          style={{ background: "rgba(255,255,255,0.06)" }} />
-
         <div className="relative flex items-center justify-between mb-5">
           <div className="flex items-center gap-3.5">
             {/* Avatar with ring */}
             <div className="relative">
-              <div className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                style={{ background: "rgba(255,255,255,0.18)", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.25)" }}>
-                <Bot style={{ width: 24, height: 24 }} className="text-white" />
+              <div className="w-11 h-11 rounded-lg flex items-center justify-center bg-white/10 border border-white/20 backdrop-blur-sm">
+                <Bot style={{ width: 22, height: 22 }} className="text-white" />
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-white"
-                style={{ background: "#34d399", boxShadow: "0 0 8px #34d399" }} />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border border-white"
+                style={{ background: "#34d399", boxShadow: "0 0 6px #34d399" }} />
             </div>
             <div>
-              <h1 className="text-[18px] font-black text-white tracking-tight leading-tight">StudyBot</h1>
-              <p className="text-[12px] text-white/60 font-medium mt-0.5">Course &amp; Doubt Assistant</p>
+              <h1 className="text-[17px] font-semibold text-white tracking-tight leading-tight">StudyBot</h1>
+              <p className="text-[11px] text-white/70 font-normal mt-0.5">Course &amp; Doubt Assistant</p>
             </div>
           </div>
           <button
             onClick={resetChat}
             title="Reset conversation"
-            className="w-9 h-9 rounded-xl flex items-center justify-center transition-all cursor-pointer hover:scale-105"
-            style={{ background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)" }}
+            className="w-8 h-8 rounded-lg flex items-center justify-center transition-all bg-white/10 hover:bg-white/20 border border-white/10 cursor-pointer"
           >
-            <RotateCcw className="w-4 h-4 text-white/80" />
+            <RotateCcw className="w-4 h-4 text-white/90" />
           </button>
         </div>
 
@@ -306,10 +295,9 @@ export default function Chatbot() {
           ].map(({ Icon, label }) => (
             <span
               key={label}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold text-white"
-              style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.18)" }}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[10px] font-medium text-white bg-white/10 border border-white/15"
             >
-              <Icon style={{ width: 12, height: 12 }} />
+              <Icon style={{ width: 11, height: 11 }} />
               {label}
             </span>
           ))}
@@ -317,17 +305,16 @@ export default function Chatbot() {
       </div>
 
       {/* ── Quick Prompts ─────────────────────────────────────── */}
-      <div className="shrink-0 px-5 pt-4 pb-4" style={{ borderBottom: "1px solid #f1f3f9", background: "#fafbff" }}>
-        <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest mb-3">Quick questions</p>
+      <div className="shrink-0 px-5 pt-4 pb-4 border-b border-hairline bg-canvas-soft">
+        <p className="text-[10px] text-ink-muted font-bold uppercase tracking-wider mb-3">Quick questions</p>
         <div className="flex gap-2 flex-wrap">
           {QUICK_PROMPTS.map(({ label, icon: Icon, query }) => (
             <button
               key={label}
               onClick={() => sendMessage(query)}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-[12px] font-semibold text-slate-600 hover:text-brand-primary transition-all duration-150 cursor-pointer"
-              style={{ background: "#fff", border: "1.5px solid #e8eaf6" }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = "#5e5ce6"; e.currentTarget.style.background = "#f0f0fe"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "#e8eaf6"; e.currentTarget.style.background = "#fff"; }}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-semibold text-ink-secondary hover:text-brand-primary border border-hairline bg-white transition-all duration-150 cursor-pointer"
+              onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--color-brand-primary-soft)"; e.currentTarget.style.background = "var(--color-brand-primary-light)"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--color-hairline)"; e.currentTarget.style.background = "#fff"; }}
             >
               <Icon style={{ width: 13, height: 13 }} />
               {label}
@@ -338,12 +325,7 @@ export default function Chatbot() {
 
       {/* ── Messages ──────────────────────────────────────────── */}
       <div
-        className="flex-1 overflow-y-scroll px-6 py-6 flex flex-col gap-5 min-h-0"
-        style={{
-          background: "radial-gradient(circle at 20px 20px, #e8eaf6 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-          backgroundColor: "#f9faff",
-        }}
+        className="flex-1 overflow-y-scroll px-6 py-6 flex flex-col gap-5 min-h-0 bg-canvas-soft"
       >
         {messages.map((msg) => (
           <MessageBubble key={msg.id} msg={msg} isNew={msg.isNew} />
@@ -353,11 +335,9 @@ export default function Chatbot() {
       </div>
 
       {/* ── Input Bar ─────────────────────────────────────────── */}
-      <div className="shrink-0 px-5 pb-5 pt-3 bg-white" style={{ borderTop: "1px solid #f1f3f9" }}>
+      <div className="shrink-0 px-5 pb-5 pt-3 bg-white border-t border-hairline">
         <div
-          className="flex items-end gap-3 rounded-2xl px-4 py-3 transition-all duration-200"
-          style={{ background: "#f5f6ff", border: "1.5px solid #e2e3f8" }}
-          onFocus={() => {}}
+          className="flex items-end gap-3 rounded-lg px-4 py-2.5 border border-hairline bg-canvas-soft transition-all duration-150"
         >
           <textarea
             ref={inputRef}
@@ -369,30 +349,30 @@ export default function Chatbot() {
               e.target.style.height = Math.min(e.target.scrollHeight, 100) + "px";
             }}
             onKeyDown={handleKeyDown}
-            onFocus={e => { e.currentTarget.parentElement.style.borderColor = "#5e5ce6"; e.currentTarget.parentElement.style.background = "#fff"; e.currentTarget.parentElement.style.boxShadow = "0 0 0 4px rgba(94,92,230,0.08)"; }}
-            onBlur={e => { e.currentTarget.parentElement.style.borderColor = "#e2e3f8"; e.currentTarget.parentElement.style.background = "#f5f6ff"; e.currentTarget.parentElement.style.boxShadow = "none"; }}
+            onFocus={e => { e.currentTarget.parentElement.style.borderColor = "var(--color-brand-primary-soft)"; e.currentTarget.parentElement.style.background = "#fff"; e.currentTarget.parentElement.style.boxShadow = "0 0 0 4px var(--color-brand-primary-light)"; }}
+            onBlur={e => { e.currentTarget.parentElement.style.borderColor = "var(--color-hairline)"; e.currentTarget.parentElement.style.background = "var(--color-canvas-soft)"; e.currentTarget.parentElement.style.boxShadow = "none"; }}
             placeholder="Ask a doubt or explore a course..."
-            className="flex-1 resize-none text-[13px] text-slate-700 placeholder-slate-400 outline-none bg-transparent leading-relaxed py-0.5 min-h-[26px] font-medium"
+            className="flex-1 resize-none text-[13px] text-ink placeholder-ink-muted/60 outline-none bg-transparent leading-relaxed py-0.5 min-h-[26px] font-normal"
             style={{ maxHeight: 100 }}
           />
           <button
             onClick={() => sendMessage(input)}
             disabled={!input.trim() || isTyping}
-            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 active:scale-95"
+            className="w-8.5 h-8.5 rounded-lg flex items-center justify-center shrink-0 transition-all duration-150 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:scale-102"
             style={{
               background: input.trim() && !isTyping
-                ? "linear-gradient(135deg, #5e5ce6, #807df6)"
-                : "#e8eaf6",
-              boxShadow: input.trim() && !isTyping ? "0 4px 14px rgba(94,92,230,0.35)" : "none",
+                ? "var(--color-brand-primary)"
+                : "var(--color-hairline)",
+              boxShadow: input.trim() && !isTyping ? "0 2px 6px rgba(83,58,253,0.2)" : "none",
             }}
           >
             <Send
-              style={{ width: 15, height: 15 }}
-              className={input.trim() && !isTyping ? "text-white" : "text-slate-400"}
+              style={{ width: 14, height: 14 }}
+              className={input.trim() && !isTyping ? "text-white" : "text-ink-muted"}
             />
           </button>
         </div>
-        <p className="text-center text-[11px] text-slate-300 font-medium mt-2">
+        <p className="text-center text-[10px] text-ink-muted/70 font-normal mt-2">
           Enter to send &nbsp;&middot;&nbsp; Answers are AI-generated
         </p>
       </div>

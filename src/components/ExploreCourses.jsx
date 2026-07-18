@@ -226,17 +226,17 @@ function CourseModal({ course, onClose }) {
   const modalRef = useRef(null);
 
   useEffect(() => {
-    gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.25, ease: "power2.out" });
+    gsap.fromTo(overlayRef.current, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power2.out" });
     gsap.fromTo(
       modalRef.current,
-      { opacity: 0, y: 40, scale: 0.97 },
-      { opacity: 1, y: 0, scale: 1, duration: 0.35, ease: "back.out(1.4)" }
+      { opacity: 0, y: 30, scale: 0.98 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power2.out" }
     );
   }, []);
 
   const handleClose = () => {
-    gsap.to(modalRef.current, { opacity: 0, y: 30, scale: 0.97, duration: 0.22, ease: "power2.in" });
-    gsap.to(overlayRef.current, { opacity: 0, duration: 0.22, ease: "power2.in", onComplete: onClose });
+    gsap.to(modalRef.current, { opacity: 0, y: 20, scale: 0.98, duration: 0.18, ease: "power2.in" });
+    gsap.to(overlayRef.current, { opacity: 0, duration: 0.18, ease: "power2.in", onComplete: onClose });
   };
 
   const discount = Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100);
@@ -245,39 +245,39 @@ function CourseModal({ course, onClose }) {
     <div
       ref={overlayRef}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: "rgba(15, 23, 42, 0.55)", backdropFilter: "blur(6px)" }}
+      style={{ backgroundColor: "rgba(13, 37, 61, 0.4)", backdropFilter: "blur(4px)" }}
       onClick={(e) => e.target === overlayRef.current && handleClose()}
     >
       <div
         ref={modalRef}
-        className="bg-white rounded-[28px] w-full max-w-[640px] max-h-[90vh] overflow-y-scroll shadow-2xl"
+        className="bg-white rounded-xl w-full max-w-[600px] max-h-[90vh] overflow-y-scroll shadow-2xl border border-hairline"
       >
         {/* Hero Image */}
-        <div className="relative w-full h-52 rounded-t-[28px] overflow-hidden shrink-0">
+        <div className="relative w-full h-52 shrink-0">
           <img src={course.image} alt={course.title} className="w-full h-full object-cover" />
           <div
             className="absolute inset-0"
-            style={{ background: "linear-gradient(to top, rgba(15,23,42,0.75) 0%, transparent 60%)" }}
+            style={{ background: "linear-gradient(to top, rgba(13,37,61,0.8) 0%, transparent 60%)" }}
           />
           <button
             onClick={handleClose}
-            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/40 transition-colors cursor-pointer"
+            className="absolute top-4 right-4 w-8.5 h-8.5 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/20 transition-all cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
           {course.badge && (
             <span
-              className="absolute top-4 left-4 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest text-white"
+              className="absolute top-4 left-4 px-2.5 py-0.5 rounded text-[8px] font-bold uppercase tracking-widest text-white"
               style={{ backgroundColor: course.badgeBg }}
             >
               {course.badge}
             </span>
           )}
           <div className="absolute bottom-4 left-5 right-5">
-            <span className={`inline-block px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider mb-1.5 ${course.tagColor}`}>
+            <span className={`inline-block px-2 py-0.5 rounded text-[8px] font-bold uppercase tracking-widest mb-1.5 ${course.tagColor}`}>
               {course.tag}
             </span>
-            <h2 className="text-white font-black text-base leading-snug drop-shadow-md">{course.title}</h2>
+            <h2 className="text-white font-semibold text-[15px] leading-snug drop-shadow-sm">{course.title}</h2>
           </div>
         </div>
 
@@ -286,49 +286,49 @@ function CourseModal({ course, onClose }) {
           {/* Stats Row */}
           <div className="grid grid-cols-4 gap-3">
             {[
-              { icon: <Video className="w-4 h-4" />, value: course.totalVideos, label: "Videos", color: "text-indigo-600 bg-indigo-50" },
-              { icon: <Clock className="w-4 h-4" />, value: course.duration, label: "Duration", color: "text-sky-600 bg-sky-50" },
-              { icon: <Users className="w-4 h-4" />, value: `${(course.students / 1000).toFixed(1)}k`, label: "Students", color: "text-emerald-600 bg-emerald-50" },
-              { icon: <Star className="w-4 h-4" />, value: course.rating, label: "Rating", color: "text-amber-500 bg-amber-50" },
+              { icon: <Video className="w-4 h-4" />, value: course.totalVideos, label: "Videos", color: "text-brand-primary bg-brand-primary-light" },
+              { icon: <Clock className="w-4 h-4" />, value: course.duration, label: "Duration", color: "text-brand-primary bg-brand-primary-light" },
+              { icon: <Users className="w-4 h-4" />, value: `${(course.students / 1000).toFixed(1)}k`, label: "Students", color: "text-ruby bg-ruby/10" },
+              { icon: <Star className="w-4 h-4" />, value: course.rating, label: "Rating", color: "text-lemon bg-lemon/10" },
             ].map((stat, i) => (
-              <div key={i} className="flex flex-col items-center gap-1.5 bg-slate-50 border border-slate-100 rounded-2xl p-3 text-center">
-                <span className={`w-8 h-8 rounded-xl flex items-center justify-center ${stat.color}`}>{stat.icon}</span>
-                <span className="text-sm font-black text-slate-800">{stat.value}</span>
-                <span className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider">{stat.label}</span>
+              <div key={i} className="flex flex-col items-center gap-1.5 bg-white border border-hairline rounded-lg p-3 text-center">
+                <span className={`w-8.5 h-8.5 rounded-lg flex items-center justify-center ${stat.color}`}>{stat.icon}</span>
+                <span className="text-sm font-semibold text-ink tnum">{stat.value}</span>
+                <span className="text-[9px] font-semibold text-ink-muted uppercase tracking-wider">{stat.label}</span>
               </div>
             ))}
           </div>
 
           {/* Instructor + Level */}
           <div className="flex items-center gap-3">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-black shrink-0 ${course.instructorBg}`}>
+            <div className={`w-9 h-9 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${course.instructorBg}`}>
               {course.instructorInitial}
             </div>
             <div>
-              <p className="text-xs font-bold text-slate-800">{course.instructor}</p>
-              <p className="text-[10px] text-slate-400 font-medium">Course Instructor</p>
+              <p className="text-[12px] font-semibold text-ink">{course.instructor}</p>
+              <p className="text-[10px] text-ink-muted font-normal">Course Instructor</p>
             </div>
             <div className="ml-auto">
-              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${course.levelColor}`}>{course.level}</span>
+              <span className={`text-[10px] font-medium px-2.5 py-0.5 rounded-full ${course.levelColor}`}>{course.level}</span>
             </div>
           </div>
 
           {/* Description */}
           <div>
-            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-2">About this course</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">{course.description}</p>
+            <h3 className="text-[10px] font-bold text-ink uppercase tracking-wider mb-2">About this course</h3>
+            <p className="text-xs text-ink-secondary leading-relaxed">{course.description}</p>
           </div>
 
           {/* Highlights */}
           <div>
-            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+            <h3 className="text-[10px] font-bold text-ink uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
               <Award className="w-3.5 h-3.5 text-brand-primary" />
               What you'll get
             </h3>
             <ul className="flex flex-col gap-2">
               {course.highlights.map((h, i) => (
-                <li key={i} className="flex items-start gap-2 text-xs text-slate-600">
-                  <span className="w-4 h-4 rounded-full bg-brand-primary-light flex items-center justify-center shrink-0 mt-0.5">
+                <li key={i} className="flex items-start gap-2 text-xs text-ink-secondary">
+                  <span className="w-4 h-4 rounded-lg bg-brand-primary-light flex items-center justify-center shrink-0 mt-0.5">
                     <ChevronRight className="w-2.5 h-2.5 text-brand-primary" />
                   </span>
                   {h}
@@ -339,23 +339,23 @@ function CourseModal({ course, onClose }) {
 
           {/* Curriculum */}
           <div>
-            <h3 className="text-xs font-black text-slate-700 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+            <h3 className="text-[10px] font-bold text-ink uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5 text-brand-primary" />
               Curriculum
             </h3>
             <div className="flex flex-col gap-2">
               {course.curriculum.map((sec, i) => (
-                <div key={i} className="flex items-center justify-between bg-slate-50 border border-slate-100 rounded-xl px-3 py-2.5">
+                <div key={i} className="flex items-center justify-between bg-white border border-hairline rounded-lg px-3 py-2.5">
                   <div className="flex items-center gap-2.5">
-                    <span className="w-6 h-6 rounded-lg bg-brand-primary-light flex items-center justify-center text-[9px] font-black text-brand-primary">
+                    <span className="w-6 h-6 rounded bg-brand-primary-light flex items-center justify-center text-[9px] font-semibold text-brand-primary">
                       {i + 1}
                     </span>
-                    <span className="text-xs font-semibold text-slate-700">{sec.section}</span>
+                    <span className="text-xs font-semibold text-ink-secondary">{sec.section}</span>
                   </div>
-                  <div className="flex items-center gap-1 text-[10px] text-slate-400 font-medium">
+                  <div className="flex items-center gap-1 text-[10px] text-ink-muted font-normal">
                     <PlayCircle className="w-3 h-3" />
                     {sec.videos} videos
-                    {i > 0 && <Lock className="w-3 h-3 ml-1 text-slate-300" />}
+                    {i > 0 && <Lock className="w-3 h-3 ml-1 text-ink-muted" />}
                   </div>
                 </div>
               ))}
@@ -363,20 +363,20 @@ function CourseModal({ course, onClose }) {
           </div>
 
           {/* Pricing CTA */}
-          <div className="bg-gradient-to-br from-[#5e5ce6] to-[#807df6] rounded-2xl p-5 flex items-center justify-between gap-4">
+          <div className="stripe-mesh-gradient rounded-xl p-5 flex items-center justify-between gap-4">
             <div>
               <div className="flex items-end gap-2 mb-0.5">
-                <span className="text-2xl font-black text-white">₹{course.price}</span>
-                <span className="text-sm text-white/60 line-through mb-0.5">₹{course.originalPrice}</span>
+                <span className="text-2xl font-semibold text-white tnum">₹{course.price}</span>
+                <span className="text-sm text-white/50 line-through mb-0.5 tnum">₹{course.originalPrice}</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-black bg-white/20 text-white px-2 py-0.5 rounded-full">
+                <span className="text-[9px] font-semibold bg-white/20 text-white px-2 py-0.5 rounded">
                   {discount}% OFF
                 </span>
-                <span className="text-[10px] text-white/60 font-medium">Limited time</span>
+                <span className="text-[10px] text-white/60 font-normal">Limited time</span>
               </div>
             </div>
-            <button className="bg-white text-brand-primary text-xs font-black px-5 py-3 rounded-xl hover:bg-brand-primary-light transition-colors duration-150 cursor-pointer shadow-lg shadow-indigo-900/20 whitespace-nowrap flex items-center gap-1.5">
+            <button className="bg-white text-brand-primary text-xs font-semibold px-5 py-2.5 rounded-lg hover:bg-brand-primary-light transition-all duration-150 cursor-pointer shadow whitespace-nowrap flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5" />
               Enroll Now
             </button>
@@ -403,12 +403,12 @@ export default function ExploreCourses() {
     const card = cardsRef.current[idx];
     if (!card) return;
     gsap.to(card, {
-      y: enter ? -5 : 0,
-      scale: enter ? 1.015 : 1,
+      y: enter ? -3 : 0,
       boxShadow: enter
-        ? "0 16px 32px -8px rgba(94, 92, 230, 0.15), 0 4px 12px -4px rgba(0,0,0,0.06)"
-        : "0 1px 3px 0 rgba(0,0,0,0.03)",
-      duration: 0.25,
+        ? "rgba(50, 50, 93, 0.04) 0px 6px 12px -2px, rgba(0, 0, 0, 0.02) 0px 3px 7px -3px"
+        : "rgba(50, 50, 93, 0.02) 0px 2px 5px 0px, rgba(0, 0, 0, 0.01) 0px 1px 1px 0px",
+      borderColor: enter ? "#d8deeb" : "var(--color-hairline)",
+      duration: 0.2,
       ease: "power2.out",
     });
   };
@@ -419,12 +419,12 @@ export default function ExploreCourses() {
         {/* Header */}
         <div className="flex items-center justify-between mb-5">
           <div>
-            <h3 className="text-base font-black text-slate-800">Explore Courses</h3>
-            <p className="text-[11px] text-slate-400 font-medium mt-0.5">
+            <h3 className="text-[15px] font-semibold text-ink">Explore Courses</h3>
+            <p className="text-[11px] text-ink-muted font-normal mt-0.5">
               Click any course to see pricing &amp; details
             </p>
           </div>
-          <button className="text-[11px] font-bold text-brand-primary flex items-center gap-1 hover:underline cursor-pointer">
+          <button className="text-[11px] font-semibold text-brand-primary flex items-center gap-1 hover:text-brand-primary-soft transition-colors duration-150 cursor-pointer">
             View all <ChevronRight className="w-3.5 h-3.5" />
           </button>
         </div>
@@ -438,7 +438,7 @@ export default function ExploreCourses() {
               onMouseEnter={() => handleCardHover(idx, true)}
               onMouseLeave={() => handleCardHover(idx, false)}
               onClick={() => setSelectedCourse(course)}
-              className="bg-white border border-slate-100 rounded-[20px] overflow-hidden cursor-pointer select-none group shadow-sm"
+              className="bg-white border border-hairline rounded-xl overflow-hidden cursor-pointer select-none group shadow-sm transition-all duration-150"
             >
               {/* Thumbnail */}
               <div className="relative h-36 overflow-hidden">
@@ -449,39 +449,39 @@ export default function ExploreCourses() {
                 />
                 <div
                   className="absolute inset-0"
-                  style={{ background: "linear-gradient(to top, rgba(15,23,42,0.5) 0%, transparent 55%)" }}
+                  style={{ background: "linear-gradient(to top, rgba(13,37,61,0.5) 0%, transparent 55%)" }}
                 />
                 {course.badge && (
                   <span
-                    className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-widest text-white"
+                    className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded text-[8px] font-bold uppercase tracking-widest text-white"
                     style={{ backgroundColor: course.badgeBg }}
                   >
                     {course.badge}
                   </span>
                 )}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <div className="w-10 h-10 rounded-full bg-white/25 backdrop-blur-sm flex items-center justify-center">
-                    <PlayCircle className="w-6 h-6 text-white" />
+                  <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                    <PlayCircle className="w-5.5 h-5.5 text-white" />
                   </div>
                 </div>
-                <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded-full px-2 py-0.5 shadow-sm">
+                <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1 bg-white/90 backdrop-blur-sm rounded px-2 py-0.5 shadow-sm">
                   <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                  <span className="text-[10px] font-black text-slate-700">{course.rating}</span>
+                  <span className="text-[10px] font-semibold text-ink-secondary">{course.rating}</span>
                 </div>
               </div>
 
               {/* Body */}
               <div className="p-3.5">
                 <div className="flex items-center justify-between mb-2">
-                  <span className={`inline-block px-2 py-0.5 rounded-md text-[9px] font-bold uppercase tracking-wider ${course.tagColor}`}>
+                  <span className={`inline-block px-2 py-0.5 rounded text-[8px] font-bold uppercase tracking-widest ${course.tagColor}`}>
                     {course.tag}
                   </span>
-                  <span className="text-[9px] text-slate-400 font-semibold">{course.level}</span>
+                  <span className="text-[9px] text-ink-muted font-normal">{course.level}</span>
                 </div>
-                <h4 className="text-xs font-bold text-slate-800 leading-snug line-clamp-2 mb-3 min-h-[32px]">
+                <h4 className="text-[12px] font-semibold text-ink leading-snug line-clamp-2 mb-3 min-h-[32px]">
                   {course.title}
                 </h4>
-                <div className="flex items-center gap-3 text-[10px] text-slate-400 font-medium mb-3">
+                <div className="flex items-center gap-3 text-[10px] text-ink-muted font-normal mb-3">
                   <span className="flex items-center gap-1">
                     <Video className="w-3 h-3" />
                     {course.totalVideos} videos
@@ -495,18 +495,18 @@ export default function ExploreCourses() {
                     {(course.students / 1000).toFixed(1)}k
                   </span>
                 </div>
-                <div className="border-t border-slate-100 pt-3 flex items-center justify-between">
+                <div className="border-t border-hairline pt-3 flex items-center justify-between">
                   <div className="flex items-center gap-1.5">
-                    <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[9px] font-black shrink-0 ${course.instructorBg}`}>
+                    <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[9px] font-bold shrink-0 ${course.instructorBg}`}>
                       {course.instructorInitial}
                     </div>
-                    <span className="text-[10px] font-semibold text-slate-600 truncate max-w-[80px]">
+                    <span className="text-[10px] font-medium text-ink-secondary truncate max-w-[80px]">
                       {course.instructor}
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="text-[10px] text-slate-400 line-through">₹{course.originalPrice}</span>
-                    <span className="text-sm font-black text-brand-primary">₹{course.price}</span>
+                    <span className="text-[10px] text-ink-muted line-through">₹{course.originalPrice}</span>
+                    <span className="text-sm font-semibold text-brand-primary tnum">₹{course.price}</span>
                   </div>
                 </div>
               </div>

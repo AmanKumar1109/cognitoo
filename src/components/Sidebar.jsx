@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import FriendChat from "./FriendChat";
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const [activeFriend, setActiveFriend] = useState(null);
 
   const menuItems = [
@@ -48,22 +48,24 @@ export default function Sidebar() {
 
   return (
     <>
-      <aside className="w-64 bg-white border-r border-slate-100 flex flex-col h-full py-6 select-none shrink-0">
+      <aside className={`fixed lg:relative top-0 bottom-0 left-0 z-40 w-64 bg-white border-r border-hairline flex flex-col h-full py-6 select-none shrink-0 transition-transform duration-300 ease-out ${
+        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      }`}>
         {/* Brand Header */}
         <div className="px-6 mb-8 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-brand-primary flex items-center justify-center text-white shadow-sm shadow-indigo-200">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-tr from-brand-primary to-brand-primary-soft flex items-center justify-center text-white shadow-sm">
             <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" />
             </svg>
           </div>
-          <span className="text-xl font-bold tracking-tight text-slate-800">Cognitoo</span>
+          <span className="text-[17px] font-semibold tracking-tight text-ink">Cognitoo</span>
         </div>
 
         {/* Main Navigation */}
         <div className="flex-1 px-4 space-y-7 overflow-y-scroll">
           {/* Overview Group */}
           <div>
-            <span className="px-3 text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+            <span className="px-3 text-[10px] font-bold tracking-widest text-ink-muted uppercase">
               Overview
             </span>
             <nav className="mt-2 space-y-1">
@@ -73,25 +75,32 @@ export default function Sidebar() {
                   <NavLink
                     key={item.name}
                     to={item.path}
+                    onClick={onClose}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 relative group ${isActive
-                        ? "text-brand-primary bg-indigo-50/40"
-                        : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                      `flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 relative group ${isActive
+                        ? "text-brand-primary bg-brand-primary-light"
+                        : "text-ink-secondary hover:text-ink hover:bg-canvas-soft"
                       }`
                     }
                   >
                     {({ isActive }) => (
                       <>
                         {isActive && (
-                          <span className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r-md bg-brand-primary" />
+                          <span className="absolute left-0 top-1/4 bottom-1/4 w-0.5 rounded-r-md bg-brand-primary" />
                         )}
-                        <Icon className={`w-5 h-5 transition-transform duration-200 group-hover:scale-105 ${isActive ? "text-brand-primary" : "text-slate-400 group-hover:text-slate-600"
+                        <Icon className={`w-4.5 h-4.5 transition-transform duration-150 group-hover:scale-105 ${isActive ? "text-brand-primary" : "text-ink-muted group-hover:text-ink-secondary"
                           }`} />
                         <span className="flex-1">{item.name}</span>
                         {item.badge && (
                           <span
-                            className={`text-[9px] font-black px-1.5 py-0.5 rounded-full text-white leading-none flex items-center gap-1 ${item.badgePulse ? "bg-emerald-500" : ""}`}
-                            style={!item.badgePulse && !item.badgeColor ? { background: "linear-gradient(135deg, #5e5ce6, #807df6)" } : item.badgeColor ? { background: item.badgeColor } : {}}
+                            className={`text-[9px] font-semibold px-2 py-0.5 rounded-full leading-none flex items-center gap-1`}
+                            style={
+                              item.badgePulse 
+                                ? { backgroundColor: "var(--color-ruby)", color: "#ffffff" }
+                                : item.badgeColor 
+                                  ? { backgroundColor: item.badgeColor + "20", color: item.badgeColor }
+                                  : { backgroundColor: "var(--color-brand-primary)", color: "#ffffff" }
+                            }
                           >
                             {item.badgePulse && <span className="w-1 h-1 rounded-full bg-white animate-pulse" />}
                             {item.badge}
@@ -107,7 +116,7 @@ export default function Sidebar() {
 
           {/* Friends Group */}
           <div>
-            <span className="px-3 text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+            <span className="px-3 text-[10px] font-bold tracking-widest text-ink-muted uppercase">
               Friends
             </span>
             <div className="mt-2 space-y-1">
@@ -117,37 +126,37 @@ export default function Sidebar() {
                   <button
                     key={friend.name}
                     onClick={() => handleFriendClick(friend)}
-                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer transition-all duration-200 text-left group ${isActive
-                        ? "bg-indigo-50/60"
-                        : "hover:bg-slate-50/70"
+                    className={`w-full flex items-center gap-3 px-3 py-1.5 rounded-lg cursor-pointer transition-all duration-150 text-left group ${isActive
+                        ? "bg-brand-primary-light"
+                        : "hover:bg-canvas-soft"
                       }`}
                   >
                     {/* Avatar + online dot */}
                     <div className="relative shrink-0">
-                      <div className={`w-8 h-8 rounded-full ${friend.avatarColor} flex items-center justify-center text-xs font-bold transition-transform duration-150 group-hover:scale-105`}>
+                      <div className={`w-7.5 h-7.5 rounded-full ${friend.avatarColor} flex items-center justify-center text-[11px] font-bold transition-transform duration-150 group-hover:scale-105`}>
                         {friend.initial}
                       </div>
                       {friend.online && (
                         <span
-                          className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-white"
-                          style={{ background: "#34d399", boxShadow: "0 0 5px #34d399" }}
+                          className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-white"
+                          style={{ background: "#34d399", boxShadow: "0 0 4px #34d399" }}
                         />
                       )}
                     </div>
 
                     {/* Name + role */}
                     <div className="min-w-0 flex-1">
-                      <h4 className={`text-xs font-semibold truncate transition-colors ${isActive ? "text-brand-primary" : "text-slate-700"}`}>
+                      <h4 className={`text-[12px] font-medium truncate transition-colors ${isActive ? "text-brand-primary font-semibold" : "text-ink-secondary"}`}>
                         {friend.name}
                       </h4>
-                      <p className="text-[10px] text-slate-400 truncate">
+                      <p className="text-[10px] text-ink-muted truncate">
                         {friend.online ? "Online" : friend.role}
                       </p>
                     </div>
 
                     {/* Chat bubble icon hint */}
                     <MessageSquareMore
-                      className={`w-3.5 h-3.5 shrink-0 transition-all duration-150 ${isActive ? "text-brand-primary" : "text-slate-300 group-hover:text-slate-400"
+                      className={`w-3.5 h-3.5 shrink-0 transition-all duration-150 ${isActive ? "text-brand-primary" : "text-ink-muted group-hover:text-ink-secondary"
                         }`}
                     />
                   </button>
@@ -158,25 +167,25 @@ export default function Sidebar() {
 
           {/* Settings Group */}
           <div>
-            <span className="px-3 text-[10px] font-bold tracking-wider text-slate-400 uppercase">
+            <span className="px-3 text-[10px] font-bold tracking-widest text-ink-muted uppercase">
               Settings
             </span>
             <nav className="mt-2 space-y-1">
               <NavLink
                 to="/settings"
                 className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 relative group ${isActive
-                    ? "text-brand-primary bg-indigo-50/40"
-                    : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                  `flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-all duration-150 relative group ${isActive
+                    ? "text-brand-primary bg-brand-primary-light"
+                    : "text-ink-secondary hover:text-ink hover:bg-canvas-soft"
                   }`
                 }
               >
                 {({ isActive }) => (
                   <>
                     {isActive && (
-                      <span className="absolute left-0 top-1/4 bottom-1/4 w-1 rounded-r-md bg-brand-primary" />
+                      <span className="absolute left-0 top-1/4 bottom-1/4 w-0.5 rounded-r-md bg-brand-primary" />
                     )}
-                    <Settings className={`w-5 h-5 transition-transform duration-200 group-hover:scale-105 ${isActive ? "text-brand-primary" : "text-slate-400 group-hover:text-slate-600"
+                    <Settings className={`w-4.5 h-4.5 transition-transform duration-150 group-hover:scale-105 ${isActive ? "text-brand-primary" : "text-ink-muted group-hover:text-ink-secondary"
                       }`} />
                     <span>Setting</span>
                   </>
@@ -184,9 +193,9 @@ export default function Sidebar() {
               </NavLink>
               <button
                 onClick={() => alert("Logged out!")}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-500 hover:bg-red-50/50 transition-all duration-200 group text-left cursor-pointer"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium text-ruby hover:bg-ruby/5 transition-all duration-150 group text-left cursor-pointer"
               >
-                <LogOut className="w-5 h-5 text-red-400 group-hover:text-red-600 transition-transform duration-200 group-hover:translate-x-0.5 shrink-0" />
+                <LogOut className="w-4.5 h-4.5 text-ruby/80 group-hover:text-ruby transition-transform duration-150 group-hover:translate-x-0.5 shrink-0" />
                 <span>Logout</span>
               </button>
             </nav>

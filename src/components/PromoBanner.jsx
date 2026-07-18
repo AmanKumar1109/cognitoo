@@ -27,11 +27,11 @@ export default function PromoBanner() {
   };
 
   return (
-    <div className="relative bg-gradient-to-r from-[#6366f1] via-[#5e5ce6] to-[#807df6] rounded-[24px] p-8 text-white overflow-hidden shadow-md shadow-indigo-100/50">
+    <div className="relative stripe-mesh-gradient rounded-2xl p-8 text-white overflow-hidden shadow-sm">
       {/* Background Decorative Sparkles */}
       <div 
         ref={sparkle1Ref} 
-        className="absolute right-[15%] top-[25%] text-indigo-200/40 pointer-events-none"
+        className="absolute right-[15%] top-[25%] text-white/10 pointer-events-none"
       >
         <svg className="w-16 h-16 fill-current" viewBox="0 0 24 24">
           <path d="M12 0L15.5 8.5L24 12L15.5 15.5L12 24L8.5 15.5L0 12L8.5 8.5L12 0Z" />
@@ -39,31 +39,31 @@ export default function PromoBanner() {
       </div>
       <div 
         ref={sparkle2Ref} 
-        className="absolute right-[8%] bottom-[20%] text-indigo-100/20 pointer-events-none"
+        className="absolute right-[8%] bottom-[20%] text-white/5 pointer-events-none"
       >
         <svg className="w-10 h-10 fill-current" viewBox="0 0 24 24">
           <path d="M12 0L15.5 8.5L24 12L15.5 15.5L12 24L8.5 15.5L0 12L8.5 8.5L12 0Z" />
         </svg>
       </div>
-      <div className="absolute right-[28%] bottom-[30%] w-2 h-2 rounded-full bg-white/30 pointer-events-none" />
-      <div className="absolute right-[22%] top-[40%] w-1.5 h-1.5 rounded-full bg-white/20 pointer-events-none" />
+      <div className="absolute right-[28%] bottom-[30%] w-2 h-2 rounded-full bg-white/10 pointer-events-none" />
+      <div className="absolute right-[22%] top-[40%] w-1.5 h-1.5 rounded-full bg-white/5 pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 max-w-lg">
-        <span className="text-[10px] font-bold uppercase tracking-widest text-indigo-100 bg-white/10 px-2.5 py-1 rounded-full backdrop-blur-sm">
+        <span className="text-[9px] font-bold uppercase tracking-widest text-white bg-white/10 px-3 py-1 rounded-full backdrop-blur-sm">
           Online Course
         </span>
-        <h2 className="text-2xl sm:text-3xl font-bold leading-tight mt-4 mb-6">
+        <h2 className="text-2xl sm:text-3xl font-light tracking-tight leading-tight mt-5 mb-6 text-white">
           Sharpen Your Skills with Professional Online Courses
         </h2>
         <button
           ref={buttonRef}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
-          className="flex items-center gap-2 px-5 py-2.5 bg-black text-white text-xs font-semibold rounded-full shadow-lg transition-colors duration-150 hover:bg-neutral-900 cursor-pointer"
+          className="flex items-center gap-2 px-5 py-2.5 bg-white text-brand-primary text-xs font-semibold rounded-full shadow-md transition-all duration-150 hover:bg-brand-primary-light cursor-pointer"
         >
           <span>Join Now</span>
-          <span className="w-4 h-4 rounded-full bg-white text-black flex items-center justify-center font-bold text-[10px]">
+          <span className="w-4 h-4 rounded-full bg-brand-primary text-white flex items-center justify-center font-bold text-[10px]">
             &gt;
           </span>
         </button>

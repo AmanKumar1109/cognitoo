@@ -24,7 +24,7 @@ export default function Dashboard() {
   return (
     <div 
       ref={containerRef}
-      className="p-6 md:p-8 flex flex-col lg:flex-row gap-8 h-full bg-[#f8fafc]"
+      className="p-6 md:p-8 flex flex-col lg:flex-row gap-8 h-full bg-canvas-soft"
     >
       {/* Left Columns: Core dashboard materials */}
       <div className="flex-1 flex flex-col gap-8 min-w-0">

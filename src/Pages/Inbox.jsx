@@ -20,49 +20,49 @@ export default function Inbox() {
   ];
 
   return (
-    <div ref={containerRef} className="p-8 max-w-5xl">
+    <div ref={containerRef} className="p-8 max-w-5xl bg-canvas-soft min-h-full">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">Inbox</h1>
-          <p className="text-sm text-slate-400">Keep in touch with your course mentors and friends</p>
+          <h1 className="text-[16px] font-semibold text-ink">Inbox</h1>
+          <p className="text-xs text-ink-muted">Keep in touch with your course mentors and friends</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary/95 transition-all duration-150 cursor-pointer shadow-sm">
+        <button className="flex items-center gap-2 px-3.5 py-2 bg-brand-primary text-white text-xs font-semibold rounded-lg hover:bg-brand-primary-soft transition-all duration-150 cursor-pointer shadow-sm">
           <Send className="w-4 h-4" />
           Compose
         </button>
       </div>
 
-      <div className="bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm">
-        <div className="border-b border-slate-100 px-6 py-4 bg-slate-50/50 flex gap-4 text-xs font-semibold text-slate-500">
-          <button className="text-brand-primary">All Messages</button>
-          <button className="hover:text-slate-800">Unread</button>
-          <button className="hover:text-slate-800">Archived</button>
+      <div className="bg-white border border-hairline rounded-xl overflow-hidden shadow-sm">
+        <div className="border-b border-hairline px-6 py-3 bg-canvas-soft flex gap-5 text-[12px] font-medium text-ink-muted">
+          <button className="text-brand-primary cursor-pointer">All Messages</button>
+          <button className="hover:text-ink cursor-pointer">Unread</button>
+          <button className="hover:text-ink cursor-pointer">Archived</button>
         </div>
-        <div className="divide-y divide-slate-100">
+        <div className="divide-y divide-hairline">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`p-6 flex items-start gap-4 hover:bg-slate-50/50 transition-colors duration-150 cursor-pointer relative ${
-                msg.unread ? "bg-indigo-50/10" : ""
+              className={`p-5 flex items-start gap-4 hover:bg-canvas-soft/50 transition-colors duration-150 cursor-pointer relative ${
+                msg.unread ? "bg-brand-primary-light/20" : ""
               }`}
             >
               {msg.unread && (
-                <span className="absolute left-1.5 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand-primary" />
+                <span className="absolute left-2 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand-primary" />
               )}
-              <div className="w-10 h-10 rounded-full bg-indigo-50 text-brand-primary flex items-center justify-center shrink-0">
-                <Mail className="w-5 h-5" />
+              <div className="w-8.5 h-8.5 rounded-lg bg-brand-primary-light border border-hairline text-brand-primary flex items-center justify-center shrink-0">
+                <Mail className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex justify-between items-center mb-1">
-                  <h3 className={`text-sm ${msg.unread ? "font-bold text-slate-800" : "font-semibold text-slate-700"}`}>
+                <div className="flex justify-between items-center mb-0.5">
+                  <h3 className={`text-[13px] ${msg.unread ? "font-semibold text-ink" : "font-medium text-ink-secondary"}`}>
                     {msg.sender}
                   </h3>
-                  <span className="text-xs text-slate-400">{msg.time}</span>
+                  <span className="text-[11px] text-ink-muted">{msg.time}</span>
                 </div>
-                <h4 className={`text-xs mb-1 ${msg.unread ? "font-semibold text-slate-800" : "text-slate-600"}`}>
+                <h4 className={`text-[12px] mb-0.5 ${msg.unread ? "font-medium text-ink" : "text-ink-secondary"}`}>
                   {msg.subject}
                 </h4>
-                <p className="text-xs text-slate-400 truncate">{msg.content}</p>
+                <p className="text-[12px] text-ink-muted truncate">{msg.content}</p>
               </div>
             </div>
           ))}

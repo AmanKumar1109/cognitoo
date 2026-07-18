@@ -105,70 +105,60 @@ export default function FriendChat({ friend, onClose }) {
   return (
     <div
       ref={panelRef}
-      className="fixed bottom-6 right-6 z-50 flex flex-col rounded-[24px] overflow-hidden select-none"
+      className="fixed bottom-6 right-6 z-50 flex flex-col rounded-xl overflow-hidden select-none border border-hairline bg-white"
       style={{
         width: 340,
         height: 500,
-        boxShadow: "0 0 0 1px rgba(94,92,230,0.1), 0 8px 24px -4px rgba(94,92,230,0.2), 0 24px 56px -12px rgba(15,23,42,0.25)",
+        boxShadow: "rgba(50, 50, 93, 0.08) 0px 13px 27px -5px, rgba(0, 0, 0, 0.05) 0px 8px 16px -8px, rgba(0, 0, 0, 0.03) 0px -2px 16px -1px",
       }}
     >
       {/* ── Header ─────────────────────────────────────── */}
       <div
-        className="shrink-0 px-4 py-3.5 flex items-center gap-3 relative overflow-hidden"
-        style={{ background: "linear-gradient(135deg, #4a48e0 0%, #6f6cf5 60%, #9b98ff 100%)" }}
+        className="shrink-0 px-4 py-3.5 flex items-center gap-3 relative overflow-hidden stripe-mesh-gradient"
       >
-        {/* Decorative orb */}
-        <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full pointer-events-none"
-          style={{ background: "rgba(255,255,255,0.07)" }} />
-
         {/* Avatar with online ring */}
         <div className="relative shrink-0">
           <div
-            className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-black ${friend.avatarColor}`}
+            className={`w-8.5 h-8.5 rounded-lg flex items-center justify-center text-[12px] font-bold ${friend.avatarColor}`}
           >
             {friend.initial}
           </div>
           <span
-            className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full border-2 border-white"
-            style={{ background: "#34d399", boxShadow: "0 0 6px #34d399" }}
+            className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full border border-white"
+            style={{ background: "#34d399", boxShadow: "0 0 4px #34d399" }}
           />
         </div>
 
         {/* Name + status */}
         <div className="flex-1 min-w-0">
-          <p className="text-[14px] font-black text-white leading-tight truncate">{friend.name}</p>
-          <p className="text-[11px] text-white/60 font-medium">{isTyping ? "typing..." : "Online"}</p>
+          <p className="text-[13px] font-semibold text-white leading-tight truncate">{friend.name}</p>
+          <p className="text-[10px] text-white/70 font-normal">{isTyping ? "typing..." : "Online"}</p>
         </div>
 
         {/* Action buttons */}
         <div className="flex items-center gap-1 relative z-10">
-          <button className="w-8 h-8 rounded-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/15 transition-all cursor-pointer">
-            <Phone style={{ width: 15, height: 15 }} />
+          <button className="w-7.5 h-7.5 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-white/15 transition-all cursor-pointer">
+            <Phone style={{ width: 14, height: 14 }} />
           </button>
-          <button className="w-8 h-8 rounded-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/15 transition-all cursor-pointer">
-            <Video style={{ width: 15, height: 15 }} />
+          <button className="w-7.5 h-7.5 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-white/15 transition-all cursor-pointer">
+            <Video style={{ width: 14, height: 14 }} />
           </button>
           <button
             onClick={handleClose}
-            className="w-8 h-8 rounded-xl flex items-center justify-center text-white/70 hover:text-white hover:bg-white/15 transition-all cursor-pointer"
+            className="w-7.5 h-7.5 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-white/15 transition-all cursor-pointer"
           >
-            <X style={{ width: 15, height: 15 }} />
+            <X style={{ width: 14, height: 14 }} />
           </button>
         </div>
       </div>
 
       {/* ── Messages ───────────────────────────────────── */}
       <div
-        className="flex-1 overflow-y-scroll px-4 py-4 flex flex-col gap-3 min-h-0"
-        style={{
-          background: "radial-gradient(circle at 20px 20px, #e8eaf6 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-          backgroundColor: "#f9faff",
-        }}
+        className="flex-1 overflow-y-scroll px-4 py-4 flex flex-col gap-3 min-h-0 bg-canvas-soft"
       >
         {/* Date chip */}
         <div className="flex justify-center">
-          <span className="text-[10px] font-semibold text-slate-400 bg-white/80 px-3 py-1 rounded-full border border-slate-100">
+          <span className="text-[9px] font-semibold text-ink-muted bg-white px-2.5 py-0.5 rounded border border-hairline shadow-sm">
             Today
           </span>
         </div>
@@ -179,27 +169,27 @@ export default function FriendChat({ friend, onClose }) {
             <div key={msg.id} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
               {/* Avatar for them */}
               {!isMe && (
-                <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black shrink-0 mr-2 mt-0.5 ${friend.avatarColor}`}>
+                <div className={`w-7.5 h-7.5 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0 mr-2 mt-0.5 border border-hairline ${friend.avatarColor}`}>
                   {friend.initial}
                 </div>
               )}
               <div className="flex flex-col gap-0.5 max-w-[72%]">
                 <div
-                  className={`px-3.5 py-2.5 rounded-2xl text-[12.5px] leading-relaxed font-medium ${
+                  className={`px-3 py-2.5 rounded-lg text-[12.5px] leading-relaxed font-normal ${
                     isMe
-                      ? "rounded-br-sm text-white"
-                      : "rounded-bl-sm bg-white border border-slate-100 shadow-sm text-slate-700"
+                      ? "rounded-br-none text-white shadow-sm"
+                      : "rounded-bl-none bg-white border border-hairline shadow-sm text-ink-secondary"
                   }`}
-                  style={isMe ? { background: "linear-gradient(135deg, #5e5ce6, #807df6)" } : {}}
+                  style={isMe ? { backgroundColor: "var(--color-brand-primary)" } : {}}
                 >
                   {msg.text}
                 </div>
                 <div className={`flex items-center gap-1 ${isMe ? "justify-end" : "justify-start"}`}>
-                  <span className="text-[10px] text-slate-400 font-medium">{msg.time}</span>
+                  <span className="text-[9px] text-ink-muted font-normal">{msg.time}</span>
                   {isMe && (
                     msg.read
-                      ? <CheckCheck style={{ width: 12, height: 12 }} className="text-brand-primary" />
-                      : <Check style={{ width: 12, height: 12 }} className="text-slate-300" />
+                      ? <CheckCheck style={{ width: 11, height: 11 }} className="text-brand-primary" />
+                      : <Check style={{ width: 11, height: 11 }} className="text-ink-muted/50" />
                   )}
                 </div>
               </div>
@@ -210,14 +200,14 @@ export default function FriendChat({ friend, onClose }) {
         {/* Typing indicator */}
         {isTyping && (
           <div className="flex justify-start">
-            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-black shrink-0 mr-2 mt-0.5 ${friend.avatarColor}`}>
+            <div className={`w-7.5 h-7.5 rounded-lg flex items-center justify-center text-[10px] font-bold shrink-0 mr-2 mt-0.5 border border-hairline ${friend.avatarColor}`}>
               {friend.initial}
             </div>
-            <div className="bg-white border border-slate-100 shadow-sm px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1.5">
+            <div className="bg-white border border-hairline shadow-sm px-4 py-3 rounded-lg rounded-bl-none flex items-center gap-1.5">
               {[0, 1, 2].map((i) => (
                 <span
                   key={i}
-                  className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-bounce"
+                  className="w-1.5 h-1.5 rounded-full bg-brand-primary/50 animate-bounce"
                   style={{ animationDelay: `${i * 0.15}s` }}
                 />
               ))}
@@ -228,10 +218,9 @@ export default function FriendChat({ friend, onClose }) {
       </div>
 
       {/* ── Input ──────────────────────────────────────── */}
-      <div className="shrink-0 px-3 py-3 bg-white" style={{ borderTop: "1px solid #f1f3f9" }}>
+      <div className="shrink-0 px-3 py-3 bg-white border-t border-hairline">
         <div
-          className="flex items-end gap-2 rounded-2xl px-3.5 py-2.5 transition-all duration-200"
-          style={{ background: "#f5f6ff", border: "1.5px solid #e2e3f8" }}
+          className="flex items-end gap-2 rounded-lg px-3.5 py-2 border border-hairline bg-canvas-soft transition-all duration-150"
         >
           <textarea
             ref={inputRef}
@@ -244,33 +233,33 @@ export default function FriendChat({ friend, onClose }) {
             }}
             onKeyDown={handleKeyDown}
             onFocus={(e) => {
-              e.currentTarget.parentElement.style.borderColor = "#5e5ce6";
+              e.currentTarget.parentElement.style.borderColor = "var(--color-brand-primary-soft)";
               e.currentTarget.parentElement.style.background = "#fff";
-              e.currentTarget.parentElement.style.boxShadow = "0 0 0 3px rgba(94,92,230,0.1)";
+              e.currentTarget.parentElement.style.boxShadow = "0 0 0 3px var(--color-brand-primary-light)";
             }}
             onBlur={(e) => {
-              e.currentTarget.parentElement.style.borderColor = "#e2e3f8";
-              e.currentTarget.parentElement.style.background = "#f5f6ff";
+              e.currentTarget.parentElement.style.borderColor = "var(--color-hairline)";
+              e.currentTarget.parentElement.style.background = "var(--color-canvas-soft)";
               e.currentTarget.parentElement.style.boxShadow = "none";
             }}
             placeholder={`Message ${friend.name.split(" ")[0]}...`}
-            className="flex-1 resize-none text-[13px] text-slate-700 placeholder-slate-400 outline-none bg-transparent leading-relaxed py-0.5 min-h-[22px] font-medium"
+            className="flex-1 resize-none text-[13px] text-ink placeholder-ink-muted/60 outline-none bg-transparent leading-relaxed py-0.5 min-h-[22px] font-normal"
             style={{ maxHeight: 80 }}
           />
           <button
             onClick={sendMessage}
             disabled={!input.trim() || isTyping}
-            className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-all duration-200 cursor-pointer disabled:opacity-30 hover:scale-105 active:scale-95"
+            className="w-7.5 h-7.5 rounded-lg flex items-center justify-center shrink-0 transition-all duration-150 cursor-pointer disabled:opacity-30 hover:scale-102"
             style={{
               background: input.trim() && !isTyping
-                ? "linear-gradient(135deg, #5e5ce6, #807df6)"
-                : "#e8eaf6",
-              boxShadow: input.trim() && !isTyping ? "0 4px 12px rgba(94,92,230,0.4)" : "none",
+                ? "var(--color-brand-primary)"
+                : "var(--color-hairline)",
+              boxShadow: input.trim() && !isTyping ? "0 2px 6px rgba(83,58,253,0.2)" : "none",
             }}
           >
             <Send
-              style={{ width: 14, height: 14 }}
-              className={input.trim() && !isTyping ? "text-white" : "text-slate-400"}
+              style={{ width: 13, height: 13 }}
+              className={input.trim() && !isTyping ? "text-white" : "text-ink-muted"}
             />
           </button>
         </div>

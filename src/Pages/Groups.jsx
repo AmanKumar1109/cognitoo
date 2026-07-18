@@ -20,13 +20,13 @@ export default function Groups() {
   ];
 
   return (
-    <div ref={containerRef} className="p-8 max-w-5xl">
+    <div ref={containerRef} className="p-8 max-w-5xl bg-canvas-soft min-h-full">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">My Groups</h1>
-          <p className="text-sm text-slate-400">Join discussions, pair program, and complete group tasks</p>
+          <h1 className="text-[16px] font-semibold text-ink">My Groups</h1>
+          <p className="text-xs text-ink-muted">Join discussions, pair program, and complete group tasks</p>
         </div>
-        <button className="flex items-center gap-2 px-4 py-2 bg-brand-primary text-white text-sm font-semibold rounded-xl hover:bg-brand-primary/95 transition-all duration-150 cursor-pointer shadow-sm">
+        <button className="flex items-center gap-2 px-3.5 py-2 bg-brand-primary text-white text-xs font-semibold rounded-lg hover:bg-brand-primary-soft transition-all duration-150 cursor-pointer shadow-sm">
           <Plus className="w-4 h-4" />
           Create Group
         </button>
@@ -36,30 +36,30 @@ export default function Groups() {
         {groups.map((group, idx) => (
           <div
             key={idx}
-            className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer group"
+            className="bg-white border border-hairline rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-150 flex flex-col justify-between cursor-pointer group"
           >
             <div>
               <div className="flex justify-between items-center mb-4">
-                <span className="px-2.5 py-1 text-[10px] font-bold rounded-lg uppercase bg-indigo-50 text-brand-primary">
+                <span className="px-2 py-0.5 text-[8px] font-bold rounded uppercase tracking-widest bg-brand-primary-light text-brand-primary border border-brand-primary/10">
                   {group.category}
                 </span>
                 {group.active && (
                   <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-semibold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping shrink-0" />
                     Active Now
                   </span>
                 )}
               </div>
-              <h3 className="text-base font-bold text-slate-800 group-hover:text-brand-primary transition-colors duration-150">
+              <h3 className="text-[14px] font-semibold text-ink group-hover:text-brand-primary transition-colors duration-150">
                 {group.name}
               </h3>
-              <p className="text-xs text-slate-400 mt-2 flex items-center gap-1.5">
-                <Users className="w-4 h-4 text-slate-400" />
-                {group.members} participants
+              <p className="text-xs text-ink-muted mt-2 flex items-center gap-1.5">
+                <Users className="w-4 h-4 text-ink-muted" />
+                <span className="tnum">{group.members}</span> participants
               </p>
             </div>
             
-            <button className="mt-6 flex items-center justify-center gap-1 w-full py-2 bg-slate-50 text-slate-600 text-xs font-semibold rounded-xl hover:bg-brand-primary hover:text-white transition-colors duration-150">
+            <button className="mt-6 flex items-center justify-center gap-1 w-full py-2 bg-canvas-soft text-ink-secondary text-xs font-semibold rounded-lg hover:bg-brand-primary hover:text-white border border-hairline hover:border-brand-primary transition-all duration-150">
               Open Channel
               <ArrowUpRight className="w-3.5 h-3.5" />
             </button>

@@ -19,25 +19,25 @@ export default function ProgressCards() {
       watched: "2/8 watched",
       title: "UI/UX Design",
       icon: Sparkles,
-      iconColor: "text-indigo-600",
-      bgColor: "bg-indigo-50",
-      borderColor: "hover:border-indigo-200"
+      iconColor: "text-brand-primary",
+      bgColor: "bg-brand-primary-light",
+      borderColor: "hover:border-brand-primary/30"
     },
     {
       watched: "3/8 watched",
       title: "Branding",
       icon: Palette,
-      iconColor: "text-pink-600",
-      bgColor: "bg-pink-50",
-      borderColor: "hover:border-pink-200"
+      iconColor: "text-magenta",
+      bgColor: "bg-magenta/10",
+      borderColor: "hover:border-magenta/30"
     },
     {
       watched: "6/12 watched",
       title: "Front End",
       icon: Code,
-      iconColor: "text-sky-600",
-      bgColor: "bg-sky-50",
-      borderColor: "hover:border-sky-200"
+      iconColor: "text-ruby",
+      bgColor: "bg-ruby/10",
+      borderColor: "hover:border-ruby/30"
     }
   ];
 
@@ -49,19 +49,19 @@ export default function ProgressCards() {
           <div
             key={idx}
             ref={(el) => (cardsRef.current[idx] = el)}
-            className={`bg-white border border-slate-100/80 rounded-2xl p-4 flex items-center justify-between shadow-sm cursor-pointer transition-all duration-200 ${data.borderColor} hover:shadow-md`}
+            className={`bg-white border border-hairline rounded-xl p-4 flex items-center justify-between shadow-sm cursor-pointer transition-all duration-150 ${data.borderColor} hover:shadow-md`}
           >
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-xl ${data.bgColor} ${data.iconColor} flex items-center justify-center shrink-0`}>
-                <Icon className="w-5 h-5" />
+              <div className={`w-9 h-9 rounded-lg ${data.bgColor} ${data.iconColor} flex items-center justify-center shrink-0`}>
+                <Icon className="w-4.5 h-4.5" />
               </div>
               <div className="min-w-0">
-                <span className="text-[10px] text-slate-400 font-semibold">{data.watched}</span>
-                <h4 className="text-sm font-bold text-slate-700 truncate">{data.title}</h4>
+                <span className="text-[10px] text-ink-muted font-normal">{data.watched}</span>
+                <h4 className="text-[13px] font-semibold text-ink truncate">{data.title}</h4>
               </div>
             </div>
             
-            <button className="text-slate-300 hover:text-slate-600 p-1.5 rounded-full hover:bg-slate-50 transition-colors duration-150 cursor-pointer">
+            <button className="text-ink-muted hover:text-ink-secondary p-1 rounded-md hover:bg-canvas-soft transition-all duration-150 cursor-pointer">
               <MoreVertical className="w-4 h-4 shrink-0" />
             </button>
           </div>
