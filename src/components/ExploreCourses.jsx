@@ -444,7 +444,7 @@ export default function ExploreCourses() {
               <div className="relative h-36 overflow-hidden">
                 <img
                   src={course.image}
-                  alt={course.title}
+                  alt=""
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div
@@ -496,15 +496,15 @@ export default function ExploreCourses() {
                   </span>
                 </div>
                 <div className="border-t border-hairline pt-3 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 min-w-0">
                     <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-[9px] font-bold shrink-0 ${course.instructorBg}`}>
                       {course.instructorInitial}
                     </div>
-                    <span className="text-[10px] font-medium text-ink-secondary truncate max-w-[80px]">
+                    <span className="text-[10px] font-medium text-ink-secondary inline-block truncate max-w-[80px] sm:max-w-[100px]">
                       {course.instructor}
                     </span>
                   </div>
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <span className="text-[10px] text-ink-muted line-through">₹{course.originalPrice}</span>
                     <span className="text-sm font-semibold text-brand-primary tnum">₹{course.price}</span>
                   </div>
