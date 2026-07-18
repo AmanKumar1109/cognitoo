@@ -14,14 +14,24 @@ export default function Layout() {
     gsap.fromTo(
       containerRef.current,
       { opacity: 0, scale: 0.98, y: 15 },
-      { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "power2.out" }
+      { 
+        opacity: 1, 
+        scale: 1, 
+        y: 0, 
+        duration: 0.6, 
+        ease: "power2.out",
+        onComplete: () => {
+          // Clear transform/gsap properties to prevent viewport coordinate bugs on mobile browsers
+          gsap.set(containerRef.current, { clearProps: "all" });
+        }
+      }
     );
   }, []);
 
   return (
     <div 
       ref={containerRef}
-      className="w-full h-screen bg-white flex overflow-hidden relative"
+      className="w-full h-dvh bg-white flex overflow-hidden relative"
     >
       {/* Mobile Drawer Backdrop Overlay */}
       {isMobileMenuOpen && (
